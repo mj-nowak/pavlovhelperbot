@@ -3,19 +3,40 @@ import re
 from subprocess import check_output
 import os
 import fileinput
+import configparser
 
-bot_token = ''
+
 client = discord.Client()
-#Channel ID to send messages to
-channel = client.get_channel('')
-# for guild in client.guilds:
-#     for channel in guild.channels:
-#         print(channel.id)
-ini_dir = '/home/steam/pavlovserver/Pavlov/Saved/Config/LinuxServer/Game.ini'
-mods_dir = '/home/steam/pavlovserver/Pavlov/Saved/Config/mods.txt'
-script_dir = '/home/steam/pavlovserver/PavlovServer.sh'
-proc_name = '/home/steam/pavlovserver/Pavlov/Binaries/Linux/PavlovServer'
-gamemodes = ['SND', 'TDM', 'DM', 'GUN', 'CTF']
+ini_config = configparser.ConfigParser(allow_no_value=True)
+ini_config.read('bot_settings.ini')
+
+print('--------------------------------')
+print(f'Parsing config')
+print('--------------------------------')
+ini_dir = ini_config['PATHS']['GameINI']
+mods_dir = ini_config['PATHS']['Mods']
+script_dir = ini_config['PATHS']['PavlovScript']
+proc_name = ini_config['PROC']['Name']
+gamemodes = list(ini_config['GAMEMODES']['Gamemodes'].split(','))
+admins = []
+for a in ini_config['ADMINS']:
+    admins.append(a)
+bot_token = ini_config['DISCORD']['Token']
+channel_id = ini_config['DISCORD']['ChannelID']
+channel = client.get_channel(channel_id)
+
+print(f'Game.ini: {ini_dir}')
+print(f'mods.txt: {mods_dir}')
+print(f'PavlovServer.sh: {script_dir}')
+print(f'Process name: {proc_name}')
+print(f'Game modes: {gamemodes}')
+print(f'Admin IDs: {admins}')
+print(f'Bot Token: {bot_token}')
+print(f'Channel ID: {channel_id}')
+print('--------------------------------')
+print('Bot starting')
+print('--------------------------------')
+
 help_text = '''
 Commands: (case insensitive)
 !Help
@@ -37,6 +58,11 @@ Commands: (case insensitive)
 !AddMod <STEAM ID>
 !RemoveMod <STEAM ID>
 ---------------------
+!AddBotAdmin
+!RemoveBotAdmin
+!ListBotAdmins
+!GetDiscordId
+---------------------
 !PrintIni
 !PrintMods
 '''
@@ -49,7 +75,17 @@ async def on_ready():
 
 @client.event
 async def on_message(message):
+    
+    global admins
+
     if message.author == client.user:
+        return
+
+    if message.content.lower().startswith('!getdiscordid'):
+        await message.channel.send(f'Your Discord ID is: {message.author.id}')
+
+    if str(message.author.id) not in admins:
+        await message.channel.send(f'User {message.author.id} not authorized')
         return
 
 #######################################################################################
@@ -233,6 +269,55 @@ async def on_message(message):
         await message.channel.send(mods.read())
 #######################################################################################
 #######################################################################################
+    if message.content.lower().startswith('!addbotadmin'):
+        content = re.split('\s+', message.content)
+        discord_id = content[1]
+        if not discord_id.isdigit():
+            await message.channel.send('Invalid Discord ID: contains non numeric characters')
+        elif len(discord_id) < 18:
+            await message.channel.send('Invalid Discord ID: too short')
+        elif len(discord_id) > 18:
+            await message.channel.send('Invalid Discord ID: too long')
+        else:
+            if discord_id not in admins:
+                admins.append(discord_id)
+                ini_config['ADMINS'] = {}
+                for a in admins:           
+                    ini_config['ADMINS'][a] = ''
+                with open('bot_settings.ini', 'w') as configfile:
+                    ini_config.write(configfile)
+                admins.clear()
+                for a in ini_config['ADMINS']:
+                    admins.append(a)
+                await message.channel.send(f'Discord ID {discord_id} added to admin list')
+            else:
+                await message.channel.send(f'Discord ID {discord_id} already in admin list')
+
+
+    if message.content.lower().startswith('!removebotadmin'):
+        content = re.split('\s+', message.content)
+        discord_id = content[1]
+        if not discord_id.isdigit():
+            await message.channel.send('Invalid Discord ID: contains non numeric characters')
+        elif len(discord_id) < 18:
+            await message.channel.send('Invalid Discord ID: too short')
+        elif len(discord_id) > 18:
+            await message.channel.send('Invalid Discord ID: too long')
+        else:
+            if discord_id in admins:
+                with open('bot_settings.ini', 'w') as configfile:
+                    del ini_config['ADMINS'][discord_id]
+                    ini_config.write(configfile)
+                    admins.clear()
+                for a in ini_config['ADMINS']:
+                    admins.append(a)
+                await message.channel.send(f'Discord ID {discord_id} removed from admin list')
+            else:
+                await message.channel.send(f'Discord ID {discord_id} not in admin list')
+
+
+    if message.content.lower().startswith('!listbotadmins'):
+        await message.channel.send(f'Admins: {admins}')
 
 
 client.run(bot_token)
