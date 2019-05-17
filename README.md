@@ -11,4 +11,4 @@ https://github.com/Chikachi/DiscordIntegration/wiki/How-to-get-a-token-and-chann
 - Set "bot_token" and "channel" variables in pavlovbot.py
 - "sudo su -l steam"
 - "pip3 install discord"
-- "python3 pavlovbot.py"
+- "python3 path_to_pavlovbot.py"
