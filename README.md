@@ -43,6 +43,14 @@ SetServerPlayerCount <NUMBER>
 AddMod <STEAM ID>
   
 RemoveMod <STEAM ID>
+
+AddBotAdmin
+
+RemoveBotAdmin
+
+ListBotAdmins
+
+GetDiscordId
   
 PrintIni
 
