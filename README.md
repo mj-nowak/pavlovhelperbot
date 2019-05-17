@@ -2,8 +2,8 @@
 Discord bot for managing dedicated Pavlov servers
 
 Requirements:
--Python 3.6+
--Running on same machine as the dedicated server to control
+- Python 3.6+
+- Running on same machine as the dedicated server to control
 
 Setup:
 - Follow this guide up to setup a new bot and get a token and channel ID:
