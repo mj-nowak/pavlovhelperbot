@@ -10,8 +10,8 @@ Requirements:
 Setup:
 - Follow this guide up to setup a new bot and get a token and channel ID:
 https://github.com/Chikachi/DiscordIntegration/wiki/How-to-get-a-token-and-channel-ID-for-Discord
-- Set "bot_token" and "channel" variables in pavlovbot.py
-- Change any file references where necessariy if not installed to default location
+- Set "token" and "channelid" variables in bot_settings.ini
+- Change any file references where necessariy if not installed to default location in bot_settings.ini
 - "sudo su -l steam"
 - "pip3 install discord"
 - "python3 path_to_pavlovbot.py"
