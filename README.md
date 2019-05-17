@@ -1,6 +1,8 @@
 # pavlovhelperbot
 Discord bot for managing dedicated Pavlov servers
 
+NOTE:  There is no user validation in place yet, anyone on the channel the bot is deployed to will be able to execute the commands, keep that in mind
+
 Requirements:
 - Python 3.6+
 - Running on same machine as the dedicated server to control
