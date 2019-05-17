@@ -12,3 +12,35 @@ https://github.com/Chikachi/DiscordIntegration/wiki/How-to-get-a-token-and-chann
 - "sudo su -l steam"
 - "pip3 install discord"
 - "python3 path_to_pavlovbot.py"
+
+Commands: (case insensitive) (prefix command with "!")
+
+Help
+
+StartServer
+
+StopServer
+
+RestartServer
+
+AddMap <UGC NUMBER> <GAMEMODE>
+  
+RemoveMap <UGC>
+
+ReportCPU
+
+ReportMemory
+
+ReportDisk
+
+SetServerName <NAME>
+  
+SetServerPlayerCount <NUMBER>
+
+AddMod <STEAM ID>
+  
+RemoveMod <STEAM ID>
+  
+PrintIni
+
+PrintMods
