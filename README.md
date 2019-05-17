@@ -19,6 +19,8 @@ NOTE: All commands require the caller to be in the [ADMINS] group EXCEPT getdisc
 [ADMINS]
 148928469923790848 = 
 
+
+-------------------------------------------------------------------
 Commands: (case insensitive) (prefix command with "!")
 
 Help
@@ -58,3 +60,4 @@ GetDiscordId
 PrintIni
 
 PrintMods
+-------------------------------------------------------------------
