@@ -25,7 +25,7 @@ Commands: (case insensitive)
 !RestartServer
 ---------------------
 !AddMap <UGC NUMBER> <GAMEMODE>
-!RemoveMap <UGC>
+!RemoveMap <UGC NUMBER>
 ---------------------
 !ReportCPU
 !ReportMemory
