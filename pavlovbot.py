@@ -58,8 +58,8 @@ Commands: (case insensitive)
 !AddMod <STEAM ID>
 !RemoveMod <STEAM ID>
 ---------------------
-!AddBotAdmin
-!RemoveBotAdmin
+!AddBotAdmin <DISCORD ID>
+!RemoveBotAdmin <DISCORD ID>
 !ListBotAdmins
 !GetDiscordId
 ---------------------
