@@ -37,8 +37,8 @@ Commands: (case insensitive)
 !AddMod <STEAM ID>
 !RemoveMod <STEAM ID>
 ---------------------
-!printini
-!printmods
+!PrintIni
+!PrintMods
 '''
 
 
