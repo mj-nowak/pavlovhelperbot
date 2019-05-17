@@ -4,10 +4,10 @@ from subprocess import check_output
 import os
 import fileinput
 
-bot_token = 'discord_bot_token_here'
+bot_token = ''
 client = discord.Client()
 #Channel ID to send messages to
-channel = client.get_channel(discord_channel_id_here)
+channel = client.get_channel('')
 # for guild in client.guilds:
 #     for channel in guild.channels:
 #         print(channel.id)
@@ -25,7 +25,7 @@ Commands: (case insensitive)
 !RestartServer
 ---------------------
 !AddMap <UGC NUMBER> <GAMEMODE>
-!RemoveMap <UGC NUMBER>
+!RemoveMap <UGC>
 ---------------------
 !ReportCPU
 !ReportMemory
@@ -155,7 +155,7 @@ async def on_message(message):
 #######################################################################################
 #######################################################################################
     if message.content.lower().startswith('!setservername'):
-        content = content.split(" ", 1)
+        content = message.content.split(" ", 1)
         name = f'ServerName={content[1]}'
         for line in fileinput.input(ini_dir, inplace=True):
             if line.startswith('ServerName=') :                
@@ -166,12 +166,12 @@ async def on_message(message):
 
 
     if message.content.lower().startswith('!setserverplayercount'):
-        content = content.split(" ", 1)
+        content = message.content.split(" ", 1)
         number = content[1]
         if not number.isdigit():
             await message.channel.send('Invalid number: contains non numeric characters')
         else:
-            count = f'MaxPlayers={content[1]}'
+            count = f'MaxPlayers={number}'
             for line in fileinput.input(ini_dir, inplace=True):
                 if line.startswith('MaxPlayers=') :                
                     print(count)
