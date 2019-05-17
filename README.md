@@ -1,8 +1,6 @@
 # pavlovhelperbot
 Discord bot for managing dedicated Pavlov servers
 
-NOTE:  There is no user validation in place yet, anyone on the channel the bot is deployed to will be able to execute the commands, keep that in mind
-
 Requirements:
 - Python 3.6+
 - Running on same machine as the dedicated server to control
@@ -15,6 +13,8 @@ https://github.com/Chikachi/DiscordIntegration/wiki/How-to-get-a-token-and-chann
 - "sudo su -l steam"
 - "pip3 install discord"
 - "python3 path_to_pavlovbot.py"
+
+NOTE: All commands require the caller to be in the [ADMINS] group EXCEPT getdiscordid, you can use this to acquire your own ID or to get someone elses.  An initial ID will HAVE to be in place in the [ADMINS] section of the bot_settings.ini before any other commands can be called
 
 Commands: (case insensitive) (prefix command with "!")
 
